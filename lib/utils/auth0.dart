@@ -12,8 +12,8 @@ class Constant {
       'https://$domain/dbconnections/change_password';
   static String createUser(String domain) =>
       'https://$domain/dbconnections/signup';
-  static String infoUser(String domain) =>
-      'https://$domain/userinfo';
+  static String infoUser(String domain) => 'https://$domain/userinfo';
   static String passwordRealm(String domain) => 'https://$domain/oauth/token';
   static String delegation(String domain) => 'https://$domain/delegation';
+  static String logout(String domain) => 'https://$domain/v2/logout';
 }

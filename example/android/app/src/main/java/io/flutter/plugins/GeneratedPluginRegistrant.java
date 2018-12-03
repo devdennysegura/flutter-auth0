@@ -1,6 +1,7 @@
 package io.flutter.plugins;
 
 import io.flutter.plugin.common.PluginRegistry;
+import io.flutter.plugins.flutterauth0.FlutterAuth0Plugin;
 
 /**
  * Generated file. Do not edit.
@@ -10,6 +11,7 @@ public final class GeneratedPluginRegistrant {
     if (alreadyRegisteredWith(registry)) {
       return;
     }
+    FlutterAuth0Plugin.registerWith(registry.registrarFor("io.flutter.plugins.flutterauth0.FlutterAuth0Plugin"));
   }
 
   private static boolean alreadyRegisteredWith(PluginRegistry registry) {

@@ -3,10 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth0/data/AuthUser.dart';
 import 'package:flutter_auth0/flutter_auth0.dart';
+import 'package:flutter_auth0/flutter_WebAuth.dart';
 
 final Auth0 auth = new Auth0(
-    clientId: 'auth0-client-id',
-    domain: 'domain.auth0.com');
+    clientId: 'your-client-id',
+    domain: 'your-domain');
+final WebAuth web = new WebAuth(
+    clientId: 'your-client-id',
+    domain: 'your-domain');
 
 void main() {
   runApp(MyApp());
@@ -90,6 +94,20 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void webLogin() {
+    web
+        .authorize(
+          audience: 'https://your-domain/userinfo',
+          scope: 'openid email',
+        )
+        .then((value) => print(value))
+        .catchError((err) => print(err));
+  }
+
+  void closeSessions() {
+    web.clearSession().catchError((err) => print(err));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -163,6 +181,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     if (usernameController.text != null)
                       assignFuture(this._resetPassword);
                   }),
+              MaterialButton(
+                  color: Colors.lightBlueAccent,
+                  child: const Text('Test Web Login'),
+                  onPressed: webLogin),
+              MaterialButton(
+                  color: Colors.redAccent,
+                  child: const Text('Test Clear Sessions'),
+                  onPressed: closeSessions),
               FutureBuilder<String>(
                   future: _message,
                   builder: (_, AsyncSnapshot<String> snapshot) {
