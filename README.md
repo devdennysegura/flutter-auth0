@@ -1,13 +1,13 @@
-# flutter_auth0
+# flutter_auth0 plugin
 
-A Flutter plugin to use the [Auth0 API](https://auth0.com/docs/api/authentication).
+A Flutter plugin to use the [Auth0 API & Auth0 PKCE flow](https://auth0.com/docs/api/authentication).
 
 Note: This plugin is still under development, and some APIs might not be available yet. Feedback and Pull Requests are most welcome!
 
 <div style="display:flex;flex-direction:row;">
-        <img src="screenshots/flutter_01.png" alt="screen_01" height="300" />
-        <img src="screenshots/flutter_02.png" alt="screen_02" height="300" />
-        <img src="screenshots/flutter_03.png" alt="screen_02" height="300" />
+    <img src="screenshots/flutter_01.png" alt="screen_01" height="300" />
+    <img src="screenshots/flutter_02.png" alt="screen_02" height="300" />
+    <img src="screenshots/flutter_03.png" alt="screen_02" height="300" />
 </div>
 
 ## Authentication API

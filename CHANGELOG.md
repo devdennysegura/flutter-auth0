@@ -91,3 +91,11 @@ and then register a URL type entry using the value of `CFBundleIdentifier` as th
     </dict>
 </array>
 ```
+
+## v0.1.0 (2019-01-10)
+
+features: 
+- Refresh token integrated.
+
+enhances:
+- directory layout was change.
