@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_auth0/auth0_auth.dart';
+import 'package:flutter_auth0/flutter_auth0.dart';
 
 final String clientId = 'your-client-id';
 final String domain = 'your-domain';

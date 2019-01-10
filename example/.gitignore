@@ -1,3 +1,4 @@
 ios/Pods/
 ios/Podfile.lock
 build/
+ios/.symlinks

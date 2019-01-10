@@ -1,6 +1,6 @@
 name: flutter_auth0
 description: A Flutter plugin to use Auth0 authentication
-author: dev.dennysegura@gmail.com
+author: Denny Segura <dev.dennysegura@gmail.com>
 homepage: https://gitlab.com/tangerine_mobile/flutter_auth0.git
 version: 0.1.0
 
@@ -9,9 +9,10 @@ environment:
   flutter: ">=0.1.4 <2.0.0"
 
 dependencies:
+  meta: ^1.0.4
+  http: ^0.12.0
   flutter:
     sdk: flutter
-  http: ^0.12.0
 
 dev_dependencies:
   test: ^1.5.1
