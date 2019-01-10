@@ -1,5 +1,8 @@
+part of auth0_auth;
+
 class Auth0User {
   String accessToken;
+  String refreshToken;
   String idToken;
   String scope;
   DateTime expiresDate;
@@ -7,6 +10,7 @@ class Auth0User {
 
   Auth0User.fromMap(Map<dynamic, dynamic> snapshot)
       : accessToken = snapshot['access_token'],
+        refreshToken = snapshot['refresh_token'],
         idToken = snapshot['id_token'],
         scope = snapshot['scope'],
         expiresDate = DateTime.now()
@@ -16,6 +20,7 @@ class Auth0User {
   toJson() {
     return {
       'access': accessToken,
+      'refresh_token': refreshToken,
       'id': idToken,
       'scope': scope,
       'expire': expiresDate,

@@ -1,7 +1,5 @@
 import 'package:test/test.dart';
-
-import 'package:flutter_auth0/data/AuthUser.dart';
-import 'package:flutter_auth0/flutter_auth0.dart';
+import 'package:flutter_auth0/auth0_auth.dart';
 
 Auth0 auth = new Auth0(
     clientId: 'auth0-client-id',

@@ -1,4 +1,7 @@
+part of auth0_auth;
+
 class Constant {
+  static final String platformName = Platform.isAndroid ? 'android' : 'ios';
   static const String usernameConnection = 'Username-Password-Authentication';
   static const String passwordRealmGrantType =
       'http://auth0.com/oauth/grant-type/password-realm';

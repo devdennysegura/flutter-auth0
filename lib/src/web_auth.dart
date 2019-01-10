@@ -1,9 +1,4 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:flutter/services.dart';
-import 'package:flutter_auth0/utils/auth0.dart';
-import 'package:meta/meta.dart';
-import 'package:http/http.dart' as http;
+part of auth0_auth;
 
 /*
  * Auth0 Auth API
@@ -38,12 +33,13 @@ class WebAuth {
    *
    * @memberof WebAuth
    */
-  Future<dynamic> authorize(
-      {String state,
-      String nonce,
-      dynamic audience,
-      dynamic scope,
-      String connection}) {
+  Future<dynamic> authorize({
+    String state,
+    String nonce,
+    dynamic audience,
+    dynamic scope,
+    String connection,
+  }) {
     return _channel.invokeMethod('parameters', {}).then((dynamic params) async {
       try {
         String verifier = params['verifier'];
@@ -77,10 +73,11 @@ class WebAuth {
    *
    * @memberof WebAuth
    */
-  Future<dynamic> exchange(
-      {@required String code,
-      @required String refirectUri,
-      @required String verifier}) async {
+  Future<dynamic> exchange({
+    @required String code,
+    @required String refirectUri,
+    @required String verifier,
+  }) async {
     try {
       http.Response response =
           await http.post(Uri.encodeFull(Constant.passwordRealm(this.domain)),
@@ -106,16 +103,18 @@ class WebAuth {
   }
 
   /*
-   *  Removes Auth0 session and optionally remove the Identity Provider session.
-   *  In iOS it will use `SFSafariViewController`
-   *
-   * @param {Bool} federated Optionally remove the IdP session.
-   * @returns {Promise}
-   * @see https://auth0.com/docs/logout
-   *
-   * @memberof WebAuth
-   */
-  Future<void> clearSession({bool federated = false}) async {
+    *  Removes Auth0 session and optionally remove the Identity Provider session.
+    *  In iOS it will use `SFSafariViewController`
+    *
+    * @param {Bool} federated Optionally remove the IdP session.
+    * @returns {Promise}
+    * @see https://auth0.com/docs/logout
+    *
+    * @memberof WebAuth
+  */
+  Future<void> clearSession({
+    bool federated = false,
+  }) async {
     if (platformName == 'ios') {
       try {
         dynamic bundleIdentifier =
@@ -130,4 +129,62 @@ class WebAuth {
       }
     }
   }
+
+  Future<dynamic> userInfo({
+    @required String token,
+  }) =>
+      getUserInfo(
+        this.domain,
+        token: token,
+      );
+
+  Future<dynamic> resetPassword({
+    @required String email,
+    @required String connection,
+  }) =>
+      restorePassword(
+        this.clientId,
+        this.domain,
+        email: email,
+        connection: connection,
+      );
+
+  Future<String> delegate({
+    @required String token,
+    @required String api,
+  }) =>
+      delegateToken(
+        this.clientId,
+        this.domain,
+        token: token,
+        api: api,
+      );
+
+  Future<dynamic> createUser({
+    @required String email,
+    @required String password,
+    @required String connection,
+    String username,
+    String metadata,
+    bool waitResponse = false,
+  }) =>
+      newUser(
+        this.clientId,
+        this.domain,
+        email: email,
+        password: password,
+        connection: connection,
+        username: username,
+        metadata: metadata,
+        waitResponse: waitResponse,
+      );
+
+  Future<dynamic> refreshToken({
+    @required String refreshToken,
+  }) =>
+      refresh(
+        this.clientId,
+        this.domain,
+        refreshToken: refreshToken,
+      );
 }
