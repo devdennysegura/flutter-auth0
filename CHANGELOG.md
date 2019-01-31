@@ -99,3 +99,8 @@ features:
 
 enhances:
 - directory layout was change.
+
+## v0.2.0 (2019-01-31)
+
+enhances:
+- Error handler when sign-in/sign-up.
