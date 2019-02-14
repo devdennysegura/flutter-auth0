@@ -99,3 +99,13 @@ features:
 
 enhances:
 - directory layout was change.
+
+## v0.2.0 (2019-01-30)
+
+enhances:
+- Error handler when sign-in/sign-up.
+
+## v0.2.1 (2019-01-31)
+
+fixes:
+- Expiration token in seconds.

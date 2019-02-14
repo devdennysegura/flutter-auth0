@@ -41,22 +41,30 @@ class _MyHomePageState extends State<MyHomePage> {
   String wRefreshToken;
 
   Future<String> _signUp() async {
-    dynamic user = await auth.createUser(
-        email: usernameController.text,
-        password: passwordController.text,
-        connection: 'Username-Password-Authentication',
-        waitResponse: true);
-    return '''[Sign-Up Success] 
+    try {
+      dynamic user = await auth.createUser(
+          email: usernameController.text,
+          password: passwordController.text,
+          connection: 'Username-Password-Authentication',
+          waitResponse: true);
+      return '''[Sign-Up Success] 
     User Id: ${user['_id']}''';
+    } catch (e) {
+      return e;
+    }
   }
 
   Future<String> _signIn() async {
-    Auth0User user = await auth.passwordRealm(
-        username: usernameController.text,
-        password: passwordController.text,
-        realm: 'Username-Password-Authentication');
-    return '''[Sign-In Success] 
+    try {
+      Auth0User user = await auth.passwordRealm(
+          username: usernameController.text,
+          password: passwordController.text,
+          realm: 'Username-Password-Authentication');
+      return '''[Sign-In Success] 
     Access Token: ${user.accessToken}''';
+    } catch (e) {
+      return e;
+    }
   }
 
   Future<String> _delegationToken() async {

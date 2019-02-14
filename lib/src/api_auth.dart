@@ -32,7 +32,7 @@ class Auth0 {
     String audience,
     String scope = 'openid email profile token id id_token offline_access',
   }) async {
-    dynamic request = await http.post(
+    http.Response response = await http.post(
       Uri.encodeFull(Constant.passwordRealm(this.domain)),
       headers: Constant.headers,
       body: jsonEncode(
@@ -47,8 +47,12 @@ class Auth0 {
         },
       ),
     );
-    Map<String, dynamic> response = await jsonDecode(request.body);
-    return Auth0User.fromMap(response);
+    Map<String, dynamic> authResponse = await jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      return Auth0User.fromMap(authResponse);
+    } else {
+      throw authResponse['error_description'];
+    }
   }
 
   Future<dynamic> userInfo({

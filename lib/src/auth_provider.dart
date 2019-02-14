@@ -155,8 +155,7 @@ Future<dynamic> newUser(
     if (response.statusCode == 200) {
       return body;
     } else {
-      throw new Auth0Exeption(
-          name: 'Sign-up user Error', description: body['description']);
+      throw body['message'];
     }
   } else {
     return http.post(
