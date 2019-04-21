@@ -115,7 +115,7 @@ class WebAuth {
   Future<void> clearSession({
     bool federated = false,
   }) async {
-    if (platformName == 'ios') {
+    if (platformName == 'ios' || platformName == "android") {
       try {
         dynamic bundleIdentifier =
             await _channel.invokeMethod('bundleIdentifier');
