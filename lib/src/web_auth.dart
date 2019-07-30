@@ -123,8 +123,9 @@ class WebAuth {
             await _channel.invokeMethod('bundleIdentifier');
         String redirectUri =
             '$bundleIdentifier://${this.domain}/$platformName/$bundleIdentifier/callback';
+        String federatedParam = federated ? '&federated=true' : '';
         String logoutUrl = Uri.encodeFull(
-            '${Constant.logout(this.domain)}?client_id=${this.clientId}&federated=$federated&returnTo=$redirectUri');
+            '${Constant.logout(this.domain)}?client_id=${this.clientId}${federatedParam}&returnTo=$redirectUri');
         await _channel.invokeMethod('showUrl', {'url': logoutUrl});
       } on PlatformException catch (e) {
         throw e.message;
