@@ -1,9 +1,5 @@
 name: flutter_auth0
-description: Flutter toolkit for Auth0 API, Using Auth0, developers can connect any application 
-              written in any language or stack, and define the external identity providers, 
-              as well as integrations, that they want to use. This short Auth0 product tour 
-              gives an overview of this process, touching upon Auth0’s unmatched extensibility 
-              and its applicability to B2B, B2C, and B2E use cases
+description: Flutter toolkit for Auth0 API and web authentication
 author: Denny Segura <dev.dennysegura@gmail.com>
 homepage: https://github.com/devdennysegura/flutter-auth0.git
 version: 0.3.0
@@ -13,7 +9,7 @@ environment:
   flutter: ">=0.1.4 <2.0.0"
 
 dependencies:
-  meta: ^1.1.7
+  meta: ^1.1.6
   http: ^0.12.0+2
   flutter:
     sdk: flutter
