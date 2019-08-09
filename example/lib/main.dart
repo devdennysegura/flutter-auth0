@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth0/flutter_auth0.dart';
 
-final String clientId = 'your-client-id';
-final String domain = 'your-domain';
+final String clientId = 'XIpuO0OchFaayJZRq8RvpQefOdfJkgSL';
+final String domain = 'dennysegura.auth0.com';
 
 final Auth0 auth = new Auth0(clientId: clientId, domain: domain);
 final WebAuth web = new WebAuth(clientId: clientId, domain: domain);
@@ -49,11 +49,9 @@ class _MyHomePageState extends State<MyHomePage> {
           waitResponse: true);
       return '''[Sign-Up Success] 
     User Id: ${user['_id']}''';
-    } 
-    on NullThrownError {
+    } on NullThrownError {
       return 'Unknown error, user may already exist';
-    }
-    catch (e) {
+    } catch (e) {
       return e;
     }
   }
@@ -113,7 +111,6 @@ class _MyHomePageState extends State<MyHomePage> {
       scope: 'openid email offline_access',
     )
         .then((value) {
-      print('response: $value');
       wRefreshToken = value['refresh_token'];
     }).catchError((err) => print('Error: $err'));
   }

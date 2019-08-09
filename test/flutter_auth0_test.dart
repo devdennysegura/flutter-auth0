@@ -2,8 +2,8 @@ import 'package:test/test.dart';
 import 'package:flutter_auth0/flutter_auth0.dart';
 
 Auth0 auth = new Auth0(
-    clientId: 'your-client-id',
-    domain: 'your-domain');
+    clientId: 'XIpuO0OchFaayJZRq8RvpQefOdfJkgSL',
+    domain: 'dennysegura.auth0.com');
 
 void main() {
   test('sign-up', () async {

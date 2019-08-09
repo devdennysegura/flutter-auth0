@@ -1,37 +1,45 @@
-## v0.0.1 (2018-10-31)
+## v0.3.9 (2019-08-09)
 
-A Flutter plugin to use the [Auth0 API](https://auth0.com/docs/api/authentication).
+fixes:
 
-Note: This plugin is still under development, and some APIs might not be available yet. Feedback and Pull Requests are most welcome!
+- blank login page
 
-## Usage
-To use this plugin, add `flutter_auth0` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
+## v0.2.2 (2019-08-08)
 
-## SignIn with email and password
+fixes:
 
-To signin instance auth0 using `auth0-client-id` and `auth0-domain` and call signInWithEmailAndPassword function with email and password as params
+- minor fixes
 
-```dart
+## v0.2.1 (2019-01-31)
 
-final auth = new Auth0(clientId: 'your-client-id', domain: 'your-domain');
+fixes:
 
-Auth0User user = await auth.passwordRealm(
-        username: 'username/email',
-        password: 'password',
-        realm: 'Username-Password-Authentication');
-```
+- Expiration token in seconds.
 
-## Example
+## v0.2.0 (2019-01-30)
 
-See the [example application](https://github.com/devdennysegura/flutter-auth0/tree/master/example) source
-for a complete sample app using the auth0 authentication.
+enhances:
+
+- Error handler when sign-in/sign-up.
+
+## v0.1.0 (2019-01-10)
+
+features:
+
+- Refresh token integrated.
+
+enhances:
+
+- directory layout was change.
 
 ## v0.0.2 (2018-12-03)
 
 ### Using Authorization Code flow with PKCE
+
 ![alt](screenshots/web-login.png)
 
 ### Callback URL(s)
+
 Callback URLs are the URLs that Auth0 invokes after the authentication process. Auth0 routes your application back to this URL and appends additional parameters to it, including a token. Since callback URLs can be manipulated, you will need to add this URL to your Application's Allowed Callback URLs for security. This will enable Auth0 to recognize these URLs as valid. If omitted, authentication will not be successful.
 
 Go to the [Auth0 Dashboard](https://manage.auth0.com/#/applications), select your application and make sure that **Allowed Callback URLs** contains the following:
@@ -49,11 +57,12 @@ Go to the [Auth0 Dashboard](https://manage.auth0.com/#/applications), select you
 ```
 
 ### To use
+
 #### Android
 
 In the file `android/app/src/main/AndroidManifest.xml` you must make sure the **MainActivity** of the app has a **launchMode** value of `singleTask` and add the following activity:
 
-So if you have `samples.auth0.com` as your Auth0 domain you would have the following **MainActivity**  configuration:
+So if you have `samples.auth0.com` as your Auth0 domain you would have the following **MainActivity** configuration:
 
 ![manifes-activity](screenshots/new-activity.png)
 
@@ -62,10 +71,10 @@ Create the file **RedirectUriReceiver.java**
 ![RedirectUriReceiver.java](screenshots/receiver.png)
 
 #### iOS
+
 Inside the ios folder find the file AppDelegate.[swift|m] add the following to it
 
 ![RedirectUriReceiver.java](screenshots/AppDelegate.png)
-
 
 Inside the `ios` folder open the `Info.plist` and locate the value for `CFBundleIdentifier`, e.g.
 
@@ -92,25 +101,26 @@ and then register a URL type entry using the value of `CFBundleIdentifier` as th
 </array>
 ```
 
-## v0.1.0 (2019-01-10)
+## v0.0.1 (2018-10-31)
 
-features: 
-- Refresh token integrated.
+A Flutter plugin to use the [Auth0 API](https://auth0.com/docs/api/authentication).
 
-enhances:
-- directory layout was change.
+Note: This plugin is still under development, and some APIs might not be available yet. Feedback and Pull Requests are most welcome!
 
-## v0.2.0 (2019-01-30)
+## Usage
 
-enhances:
-- Error handler when sign-in/sign-up.
+To use this plugin, add `flutter_auth0` as a [dependency in your pubspec.yaml file](https://flutter.io/platform-plugins/).
 
-## v0.2.1 (2019-01-31)
+## SignIn with email and password
 
-fixes:
-- Expiration token in seconds.
+To signin instance auth0 using `auth0-client-id` and `auth0-domain` and call signInWithEmailAndPassword function with email and password as params
 
-## v0.2.2 (2019-09-08)
+```dart
 
-fixes:
-- minor fixes
+final auth = new Auth0(clientId: 'your-client-id', domain: 'your-domain');
+
+Auth0User user = await auth.passwordRealm(
+        username: 'username/email',
+        password: 'password',
+        realm: 'Username-Password-Authentication');
+```

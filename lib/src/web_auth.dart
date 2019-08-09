@@ -48,13 +48,30 @@ class WebAuth {
         String _state = params['state'];
         dynamic bundleIdentifier =
             await _channel.invokeMethod('bundleIdentifier');
-        String redirectUri =
-            '$bundleIdentifier://${this.domain}/$platformName/$bundleIdentifier/callback';
+        String redirectUri = callbackUri(
+          bundleId: bundleIdentifier,
+          domain: this.domain,
+        );
         String expectedState = state != null ? state : _state;
-        String authorizeUrl =
-            'https://${this.domain}/authorize?scope=$scope&audience=$audience&clientId=${this.clientId}&response_type=code&redirect_uri=$redirectUri&state=$expectedState&code_challenge_method=$codeChallengeMethod&code_challenge=$codeChallenge&client_id=${this.clientId}&auth0Client=$codeChallenge';
-        String accessToken = await _channel
-            .invokeMethod('showUrl', {'url': Uri.encodeFull(authorizeUrl)});
+        dynamic payload = {
+          "code_challenge_method": codeChallengeMethod,
+          "code_challenge": codeChallenge,
+          "clientId": this.clientId,
+          "redirectUri": redirectUri,
+          "scope": scope,
+          "audience": audience,
+          'state': expectedState,
+          'client_id': this.clientId,
+          'response_type': 'code',
+        };
+        String authorizeUrl = Uri(
+          scheme: 'https',
+          host: this.domain,
+          path: 'authorize',
+          queryParameters: payload,
+        ).toString();
+        String accessToken = await _channel.invokeMethod(
+            'showUrl', {'url': authorizeUrl.replaceAll('+', ' ')});
         return exchange(
             code: accessToken, refirectUri: redirectUri, verifier: verifier);
       } on PlatformException catch (e) {
