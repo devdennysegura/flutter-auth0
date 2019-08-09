@@ -2,7 +2,7 @@ name: flutter_auth0
 description: Flutter toolkit for Auth0 API and web authentication
 author: Denny Segura <dev.dennysegura@gmail.com>
 homepage: https://github.com/devdennysegura/flutter-auth0.git
-version: 0.3.0
+version: 0.3.1
 
 environment:
   sdk: ">=2.0.0-dev.28.0 <3.0.0"
