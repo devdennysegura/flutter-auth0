@@ -109,3 +109,8 @@ enhances:
 
 fixes:
 - Expiration token in seconds.
+
+## v0.2.2 (2019-09-08)
+
+fixes:
+- minor fixes

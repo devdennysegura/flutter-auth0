@@ -83,7 +83,7 @@ Auth0Session *_currentSession;
 
 #pragma mark - Internal methods
 - (void)presentSafariWithURL:(NSString *)urlString result:(FlutterResult)result {
-    if(@([self canLaunchURL:urlString])){
+    if((BOOL)@([self canLaunchURL:urlString])){
         NSURL *url = [NSURL URLWithString:urlString];
         UIWindow *window = [[UIApplication sharedApplication] keyWindow];
         SFSafariViewController *controller = [[SFSafariViewController alloc] initWithURL:url];

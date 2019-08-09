@@ -49,7 +49,11 @@ class _MyHomePageState extends State<MyHomePage> {
           waitResponse: true);
       return '''[Sign-Up Success] 
     User Id: ${user['_id']}''';
-    } catch (e) {
+    } 
+    on NullThrownError {
+      return 'Unknown error, user may already exist';
+    }
+    catch (e) {
       return e;
     }
   }

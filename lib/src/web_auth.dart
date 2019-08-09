@@ -115,18 +115,16 @@ class WebAuth {
   Future<void> clearSession({
     bool federated = false,
   }) async {
-    if (platformName == 'ios') {
-      try {
-        dynamic bundleIdentifier =
-            await _channel.invokeMethod('bundleIdentifier');
-        String redirectUri =
-            '$bundleIdentifier://${this.domain}/$platformName/$bundleIdentifier/callback';
-        String logoutUrl = Uri.encodeFull(
-            '${Constant.logout(this.domain)}?client_id=${this.clientId}&federated=$federated&returnTo=$redirectUri');
-        await _channel.invokeMethod('showUrl', {'url': logoutUrl});
-      } on PlatformException catch (e) {
-        throw e.message;
-      }
+    try {
+      dynamic bundleIdentifier =
+          await _channel.invokeMethod('bundleIdentifier');
+      String redirectUri =
+          '$bundleIdentifier://${this.domain}/$platformName/$bundleIdentifier/callback';
+      String logoutUrl = Uri.encodeFull(
+          '${Constant.logout(this.domain)}?client_id=${this.clientId}&federated=$federated&returnTo=$redirectUri');
+      await _channel.invokeMethod('showUrl', {'url': logoutUrl});
+    } on PlatformException catch (e) {
+      throw e.message;
     }
   }
 
