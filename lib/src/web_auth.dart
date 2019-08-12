@@ -56,8 +56,7 @@ class WebAuth {
         dynamic payload = {
           "code_challenge_method": codeChallengeMethod,
           "code_challenge": codeChallenge,
-          "clientId": this.clientId,
-          "redirectUri": redirectUri,
+          "redirect_uri": redirectUri,
           "scope": scope,
           "audience": audience,
           'state': expectedState,
