@@ -53,25 +53,23 @@ class WebAuth {
           domain: this.domain,
         );
         String expectedState = state != null ? state : _state;
-        dynamic payload = {
-          "code_challenge_method": codeChallengeMethod,
-          "code_challenge": codeChallenge,
-          "clientId": this.clientId,
-          "redirectUri": redirectUri,
-          "scope": scope,
-          "audience": audience,
+        final Map<String, String> payload = {
+          'code_challenge_method': codeChallengeMethod,
+          'code_challenge': codeChallenge,
+          'client_id': this.clientId,
+          'redirect_uri': redirectUri,
+          'scope': scope,
+          'audience': audience,
           'state': expectedState,
           'client_id': this.clientId,
           'response_type': 'code',
         };
-        String authorizeUrl = Uri(
-          scheme: 'https',
-          host: this.domain,
-          path: 'authorize',
-          queryParameters: payload,
-        ).toString();
-        String accessToken = await _channel.invokeMethod(
-            'showUrl', {'url': authorizeUrl.replaceAll('+', ' ')});
+
+        final String authorizeUrl = Uri.https(this.domain, 'authorize', payload).toString();
+        final String auth0SafeUrl = authorizeUrl.replaceAll("+", "%20");
+
+        final String accessToken = await _channel.invokeMethod(
+            'showUrl', {'url': auth0SafeUrl});
         return exchange(
             code: accessToken, refirectUri: redirectUri, verifier: verifier);
       } on PlatformException catch (e) {
