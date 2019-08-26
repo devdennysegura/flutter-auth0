@@ -1,3 +1,15 @@
+## v0.5.0 (2019-08-09)
+
+breaking changes:
+
+- parameter to use auth0 authentication
+
+features:
+
+- users handler
+    - get user info
+    - update user info
+
 ## v0.3.1 (2019-08-09)
 
 fixes:

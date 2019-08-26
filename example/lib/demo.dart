@@ -54,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage>
       key: skey,
       appBar: AppBar(
         elevation: 0.7,
+        centerTitle: false,
         leading: Image.network(
           'https://cdn.auth0.com/styleguide/components/1.0.8/media/logos/img/logo-grey.png',
           height: 40,

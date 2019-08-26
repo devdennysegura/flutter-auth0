@@ -1,132 +1,82 @@
 package io.flutter.plugins.flutterauth0;
 
 import android.app.Activity;
-import android.os.Bundle;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Handler;
-import androidx.annotation.NonNull;
+import android.os.Bundle;
+import android.util.Log;
+// import android.os.Handler;
 import androidx.browser.customtabs.CustomTabsIntent;
-import android.util.Base64;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.HashMap;
+import io.flutter.plugin.common.PluginRegistry.Registrar;
+import io.flutter.plugin.common.PluginRegistry.ActivityResultListener;
 import java.util.Map;
+
+import io.flutter.plugins.flutterauth0.common.AuthenticationFactory;
 
 /** Flutter plugin for Auth0. */
 public class FlutterAuth0Plugin implements MethodCallHandler {
-    private final PluginRegistry.Registrar registrar;
-    private static final String US_ASCII = "US-ASCII";
-    private static final String SHA_256 = "SHA-256";
-    private static final int CANCEL_EVENT_DELAY = 100;
-    public static Result callbackResult;
+    private static final String TAG = FlutterAuth0Plugin.class.getName();
+    private static Registrar registrar;
+    private static final String CHANNEL = "io.flutter.plugins/auth0";
+    private static final int REQUEST = 1;
+    private static Result response;
 
-    public static void registerWith(PluginRegistry.Registrar registrar) {
-        final MethodChannel channel = new MethodChannel(registrar.messenger(), "plugins.flutter.io/auth0");
+    public static void registerWith(Registrar registrar) {
+        final MethodChannel channel = new MethodChannel(registrar.messenger(), CHANNEL);
         FlutterAuth0Plugin instance = new FlutterAuth0Plugin(registrar);
         channel.setMethodCallHandler(instance);
     }
 
-    private FlutterAuth0Plugin(PluginRegistry.Registrar registrar) {
-        this.registrar = registrar;
+    private FlutterAuth0Plugin(Registrar pluginRegister) {
+        super();
+        registrar = pluginRegister;
     }
 
     @Override
     public void onMethodCall(MethodCall call, Result result) {
-        if (call.method.equals("showUrl")) {
-            handleShowUrl(call, result);
+        response = result;
+        if (call.method.equals("authorize")) {
+            authorize(call);
         } else if (call.method.equals("parameters")) {
-            handleOauthParameters(call, result);
+            getOauthParameters(result);
         } else if (call.method.equals("bundleIdentifier")) {
-            handleBundleIdentifier(call, result);
+            getBundleIdentifier(result);
         } else {
             result.notImplemented();
         }
     }
 
     @SuppressWarnings("unchecked")
-    public void handleBundleIdentifier(MethodCall call, Result result) {
-        result.success(this.registrar.context().getPackageName());
+    public void getBundleIdentifier(Result result) {
+        String packageName = AuthenticationFactory.getIdentifier(registrar.context());
+        result.success(packageName);
     }
 
-    private void handleShowUrl(MethodCall call, Result result) {
-        callbackResult = result;
-        @SuppressWarnings("unchecked")
-        Map<String, Object> arguments = (Map<String, Object>) call.arguments;
-        final String url = (String) arguments.get("url");
-        final Activity activity = this.registrar.activity();
-        if (activity != null) {
-            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-            CustomTabsIntent customTabsIntent = builder.build();
-            customTabsIntent.launchUrl(activity, Uri.parse(url));
-        } else {
-            final Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setData(Uri.parse(url));
-            this.registrar.context().startActivity(intent);
-        }
+    private void getOauthParameters(Result result) {
+        Map<String, Object> params = AuthenticationFactory.getAuthParameters();
+        result.success(params);
     }
 
-    private void handleOauthParameters(MethodCall callback, Result result) {
-        final String verifier = this.generateRandomValue();
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("verifier", verifier);
-        parameters.put("code_challenge", this.generateCodeChallenge(verifier));
-        parameters.put("code_challenge_method", "S256");
-        parameters.put("state", this.generateRandomValue());
-        result.success(parameters);
+    private void authorize(MethodCall call) {
+        final String url = (String) call.arguments;
+        final Activity activity = registrar.activity();
+        CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+        CustomTabsIntent customTabsIntent = builder.build();
+        customTabsIntent.launchUrl(activity, Uri.parse(url));
     }
 
-    public static void resolveWebAuthentication(String code, String error) {
+    public static Activity getActivity() {
+        return registrar.activity();
+    }
+
+    public static void resolve(String code, String error) {
         if (error != null)
-            callbackResult.success(null);
-        callbackResult.success(code);
+            response.error("ACTIVITY_FAILURE", error, null);
+        response.success(code);
     }
 
-    private String getBase64String(byte[] source) {
-        return Base64.encodeToString(source, Base64.URL_SAFE | Base64.NO_WRAP | Base64.NO_PADDING);
-    }
-
-    private byte[] getASCIIBytes(String value) {
-        byte[] input;
-        try {
-            input = value.getBytes(US_ASCII);
-        } catch (UnsupportedEncodingException e) {
-            throw new IllegalStateException("Could not convert string to an ASCII byte array", e);
-        }
-        return input;
-    }
-
-    private byte[] getSHA256(byte[] input) {
-        byte[] signature;
-        try {
-            MessageDigest md = MessageDigest.getInstance(SHA_256);
-            md.update(input, 0, input.length);
-            signature = md.digest();
-        } catch (NoSuchAlgorithmException e) {
-            throw new IllegalStateException("Failed to get SHA-256 signature", e);
-        }
-        return signature;
-    }
-
-    private String generateRandomValue() {
-        SecureRandom sr = new SecureRandom();
-        byte[] code = new byte[32];
-        sr.nextBytes(code);
-        return this.getBase64String(code);
-    }
-
-    private String generateCodeChallenge(@NonNull String codeVerifier) {
-        byte[] input = getASCIIBytes(codeVerifier);
-        byte[] signature = getSHA256(input);
-        return getBase64String(signature);
-    }
 }

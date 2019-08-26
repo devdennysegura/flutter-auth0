@@ -46,7 +46,7 @@ Auth0Session *_currentSession;
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel = [FlutterMethodChannel
-      methodChannelWithName:@"plugins.flutter.io/auth0"
+      methodChannelWithName:@"io.flutter.plugins/auth0"
             binaryMessenger:[registrar messenger]];
   FlutterAuth0Plugin* instance = [[FlutterAuth0Plugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];
@@ -54,9 +54,9 @@ Auth0Session *_currentSession;
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"getPlatformVersion" isEqualToString:call.method]) {
     result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
-  } else if ([@"showUrl" isEqualToString:call.method]) {
-        NSString *url = call.arguments[@"url"];
-        BOOL closeOnLoad = call.arguments[@"closeOnLoad"];
+  } else if ([@"authorize" isEqualToString:call.method]) {
+        NSString *url = call.arguments;
+        BOOL closeOnLoad = false;
         [self presentSafariWithURL:url result:result];
         self.closeOnLoad = closeOnLoad;
   } else if ([@"parameters" isEqualToString:call.method]) {
