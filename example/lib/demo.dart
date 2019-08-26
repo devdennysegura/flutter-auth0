@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth0/auth0.dart';
-import 'package:flutter_auth0_example/pkce.dart';
-import 'package:flutter_auth0_example/standard.dart';
+import 'package:flutter_auth0/flutter_auth0.dart';
+
+import 'pkce.dart';
+import 'standard.dart';
 
 final String clientId = 'XIpuO0OchFaayJZRq8RvpQefOdfJkgSL';
 final String domain = 'dennysegura.auth0.com';

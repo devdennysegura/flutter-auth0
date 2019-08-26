@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_auth0_example/demo.dart';
+import 'demo.dart';
 
 void main() async {
   runZoned<Future<Null>>(() async {

@@ -102,7 +102,7 @@ Go to the [Auth0 Dashboard](https://manage.auth0.com/#/applications), select you
 ## Usage
 
 ```dart
-import 'package:flutter_auth0/auth0.dart';
+import 'package:flutter_auth0/flutter_auth0.dart';
 
 class ... {
 Auth0 auth0;
