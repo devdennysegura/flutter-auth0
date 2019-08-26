@@ -29,6 +29,7 @@ class Auth0Client {
   Future<http.Response> mutate(String path, dynamic body) async {
     return this.request('POST', url(path), body: body);
   }
+
   Future<http.Response> update(String path, dynamic body) async {
     return this.request('PATCH', url(path), body: body);
   }
