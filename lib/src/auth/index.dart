@@ -205,7 +205,7 @@ class Auth0Auth {
   dynamic userInfo(dynamic params) {
     assert(params['token'] != null);
     var _client = new Auth0Client(this.client.baseUrl,
-        telemetry: this.client.telemetry, token: params.token);
+        telemetry: this.client.telemetry, token: params['token']);
     return _client.query('/userinfo').then(responseHandler);
   }
 
