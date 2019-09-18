@@ -19,12 +19,12 @@ class Auth0User {
 
   toJson() {
     return {
-      'access': accessToken,
+      'access_token': accessToken,
       'refresh_token': refreshToken,
-      'id': idToken,
+      'id_token': idToken,
       'scope': scope,
-      'expire': expiresDate,
-      'type': tokenType
+      'expires_in': expiresDate,
+      'token_type': tokenType
     };
   }
 }
