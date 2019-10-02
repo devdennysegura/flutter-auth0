@@ -16,6 +16,9 @@ class Auth0Auth {
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     }
+    else if (response.statusCode == 401) {
+      throw Auth0Exeption(description: response.body);
+    }
     throw jsonDecode(response.body);
   }
 
@@ -23,6 +26,9 @@ class Auth0Auth {
     if (response.statusCode == 200) {
       dynamic value = jsonDecode(response.body);
       return Map.from(value);
+    }
+    else if (response.statusCode == 401) {
+      throw Auth0Exeption(description: response.body);
     }
     throw jsonDecode(response.body);
   }

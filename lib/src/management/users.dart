@@ -17,6 +17,9 @@ class Users {
       dynamic value = jsonDecode(response.body);
       return Map.from(value);
     }
+    else if (response.statusCode == 401) {
+      throw Auth0Exeption(description: response.body);
+    }
     throw jsonDecode(response.body);
   }
 
