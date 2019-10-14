@@ -84,9 +84,13 @@ class WebAuth {
   clearSession({bool federated = false}) async {
     var payload = Map.from({
       'clientId': this.clientId,
-      'returnTo': await callbackUri(this.domain),
-      'federated': federated.toString(),
+      'returnTo': await callbackUri(this.domain)
     });
+
+    if (federated) {
+      payload['federated'] = federated.toString();
+    }
+
     var logoutUrl = this.client.logoutUrl(payload);
     return auth0Channel.invokeMethod('authorize', logoutUrl);
   }
