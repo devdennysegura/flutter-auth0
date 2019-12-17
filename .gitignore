@@ -388,3 +388,7 @@ xcuserdata
 .idea/misc.xml
 
 scripts/pub_publish.sh
+.idea/
+.flutter-plugins-dependencies
+.gradle/
+local.properties
