@@ -392,3 +392,4 @@ scripts/pub_publish.sh
 .flutter-plugins-dependencies
 .gradle/
 local.properties
+.flutter-plugins
