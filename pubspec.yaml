@@ -5,8 +5,8 @@ homepage: https://github.com/devdennysegura/flutter-auth0
 version: 0.5.0
 
 environment:
-  sdk: ">=2.0.0-dev.28.0 <3.0.0"
-  flutter: ">=0.1.4 <2.0.0"
+  sdk: ">=2.1.0 <3.0.0"
+  flutter: ">=1.10.0 <2.0.0"
 
 dependencies:
   meta: ^1.1.6
@@ -19,5 +19,7 @@ dev_dependencies:
 
 flutter:
   plugin:
-    androidPackage: io.flutter.plugins.flutterauth0
-    pluginClass: FlutterAuth0Plugin
+    platforms:
+      android:
+        package: io.flutter.plugins.flutterauth0
+        pluginClass: FlutterAuth0Plugin
