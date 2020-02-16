@@ -14,7 +14,7 @@ class Auth0User {
         idToken = snapshot['id_token'],
         scope = snapshot['scope'],
         expiresDate =
-            DateTime.now().add(Duration(seconds: snapshot['expires_in'] = 0)),
+            DateTime.now().add(Duration(seconds: snapshot['expires_in'] ?? 0)),
         tokenType = snapshot['token_type'];
 
   toJson() {
