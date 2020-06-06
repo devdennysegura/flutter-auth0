@@ -105,7 +105,7 @@ class Auth0Auth {
       http.Response res = await this.client.mutate('/oauth/token', payload);
       return await responseDataHandler(res);
     } catch (e) {
-      throw new Auth0Exeption(description: e);
+      throw new Auth0Exeption(description: e.toString());
     }
   }
 
@@ -160,7 +160,7 @@ class Auth0Auth {
       http.Response res = await this.client.mutate('/oauth/token', payload);
       return await responseDataHandler(res);
     } catch (e) {
-      throw new Auth0Exeption(description: e);
+      throw new Auth0Exeption(description: e.toString());
     }
   }
 
@@ -174,7 +174,7 @@ class Auth0Auth {
       http.Response res = await this.client.query('/userinfo');
       return await responseDataHandler(res);
     } catch (e) {
-      throw new Auth0Exeption(description: e);
+      throw new Auth0Exeption(description: e.toString());
     }
   }
 
