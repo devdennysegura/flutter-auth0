@@ -23,3 +23,5 @@ flutter:
       android:
         package: io.flutter.plugins.flutterauth0
         pluginClass: FlutterAuth0Plugin
+      ios:
+        pluginClass: FlutterAuth0Plugin
