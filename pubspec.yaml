@@ -9,7 +9,7 @@ environment:
   
 dependencies:
   meta: ^1.1.6
-  http: ^0.12.0+2
+  http: ^0.13.1
   flutter:
     sdk: flutter
 
